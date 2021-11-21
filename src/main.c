@@ -26,9 +26,11 @@ void entrarNoSistema(){
     switch(escolha){
         case 1:
             fazerLogin();
+            break;
 
         case 2:
             fazerCadastro();
+            break;
 
         case 3:
             exit(0);
@@ -37,7 +39,7 @@ void entrarNoSistema(){
 
 void fazerLogin(){
 
-    char login[6];
+    char login[12];
     int senha, validacao;
 
     printf("Insira seu CPF e Senha\n");
@@ -58,14 +60,15 @@ void fazerLogin(){
 int validar_login(char *login, int senha){
 
     FILE *arquivo_login;
-    char linha[20], str_senha[6], login_space[7];
+    char linha[23], str_senha[10], login_space[25];
     arquivo_login = fopen("public/arquivo_login.txt", "r");
     while(!feof(arquivo_login)){
-        fgets(linha, 20, arquivo_login);
+        fgets(linha, 23, arquivo_login);
         sprintf(str_senha, "%d", senha);
         strcpy(login_space, login);
         strcat(login_space, " ");
-        if (linha == strcat(login_space, str_senha)){
+        strcat(login_space, str_senha);
+        if (strcmp(linha, login_space) == 0){
             return 1;
         }
     }
